@@ -107,7 +107,7 @@ try {
                   </div>
                   <Link to="/login">
                   <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" className="btn btn-primary btn-lg">Login</button>
+                    <button type="button" className="btn btn-primary btn-lg">Login</button>
                   </div>
                   </Link>
 
