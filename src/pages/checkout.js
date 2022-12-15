@@ -47,7 +47,7 @@ const Checkout = () => {
 
                 </table>
             </div>
-            {cart.length>1?(  <div>
+            {cart.length>=1?(  <div>
 
 <h2>Total value :  {total} ₹</h2>
 <h2>Total Item : {cart.length}</h2>
