@@ -72,7 +72,7 @@ const Adminlogin = () => {
             </div>
 
            
-            <p>Only For The Admin  <Link to="/login" href="#!" className="link-info">User Login</Link></p>
+            <p>Only For The Admin  <Link to="/" href="#!" className="link-info">User Login</Link></p>
             <h4>Admin Key : admin@123</h4>
 
           </form>

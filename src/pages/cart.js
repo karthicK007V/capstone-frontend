@@ -4,23 +4,67 @@ import { Cart } from '../context/context';
 
 import { useContext } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+
+
+import useRazorpay from "react-razorpay";
+
 
 
 
 const Carts = () => {
+    const Razorpay = useRazorpay();
+    const navigate=useNavigate();
+
 
     const { cart, setcart } = useContext(Cart)
     const [total, settotal] = useState();
+    useEffect(() => {
+        settotal(cart.reduce((acc, cuu) => acc + cuu.price, 0))
+
+    }, [cart])
+    
+    
+    const checkout=()=>{
+        const options = {
+            key: "rzp_test_5Pc7XAWwFwhOM8",
+            amount:total*100+10000,
+            currency: "INR",
+            name: "FOOD COURT",
+            description: "Test Transaction",
+            // image: "https://example.com/your_logo",
+          
+            handler: (res) => {
+              console.log(res);
+              alert(`${res.razorpay_payment_id}`)
+              navigate("/cart/checkout")
+            },
+            prefill: {
+              name: "karthick",
+              email: "karthi.16v@gmail.com",
+              contact: "9994729177",
+            },
+            notes: {
+              address: "Razorpay Corporate Office",
+            },
+            theme: {
+              color: "#3399cc",
+            },
+          };
+      
+          const rzpay = new Razorpay(options);
+          rzpay.open();
+       
+       
+
+    }
 
     
 
 
   
-    useEffect(() => {
-        settotal(cart.reduce((acc, cuu) => acc + cuu.price, 0))
-
-    }, [cart])
+   
+   
     return (
         <div>
             <Navbar />
@@ -105,6 +149,7 @@ const Carts = () => {
                     </div>
                     <div className='col-md-4 m-1 border'>
                         
+                        
                              <div className="col-md-12 col-lg-4">
                             <div className="summary">
                                 <h3 className='fs-1'>Summary</h3>
@@ -122,7 +167,9 @@ const Carts = () => {
                                 
                                 <br></br>
                                 
-                              <Link to="/cart/checkout">  <button type="button fs-2" className="btn btn-primary btn-lg btn-block">Checkout</button></Link>
+                              {/* <Link to="/cart/checkout">   */}
+                              <button type="button fs-2" className="btn btn-primary btn-lg btn-block" onClick={(e)=>checkout()}>Checkout</button>
+                              {/* </Link> */}
                             </div>
                         </div>
                     </div>
